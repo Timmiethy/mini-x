@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day ❤️</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #FFC0CB;
+            --soft-pink: #FFD1DC;
+            --deep-red: #C0392B;
+            --accent-red: #FF4D6D;
+            --white:rgb(91, 0, 0);
+            --cream: #FFF5F7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--deep-red);
+            overflow-x: hidden;
+        }
+
+        /* --- Animations --- */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes cloudFloat {
+            from { left: -200px; }
+            to { left: 100%; }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(180deg, var(--primary-pink) 0%, var(--cream) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: var(--deep-red);
+            z-index: 10;
+            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        /* Hanging Hearts Decoration */
+        .hanging-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            justify-content: space-around;
+            pointer-events: none;
+        }
+
+        .string {
+            width: 2px;
+            background: rgba(192, 57, 43, 0.2);
+            height: 100px;
+            position: relative;
+            transform-origin: top;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .string::after {
+            content: '❤️';
+            position: absolute;
+            bottom: -20px;
+            left: -10px;
+            font-size: 20px;
+        }
+
+        /* Floating Clouds */
+        .cloud {
+            position: absolute;
+            background: white;
+            width: 150px;
+            height: 50px;
+            border-radius: 50px;
+            opacity: 0.8;
+            z-index: 1;
+            animation: cloudFloat 30s linear infinite;
+        }
+
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .cloud::before { width: 80px; height: 80px; top: -40px; left: 20px; }
+        .cloud::after { width: 60px; height: 60px; top: -30px; left: 70px; }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            font-size: 2rem;
+            animation: float 2s infinite ease-in-out;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* --- Timeline Section --- */
+        .journey {
+            padding: 100px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-heading {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: var(--primary-pink);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .photo-container {
+            width: 100%;
+            height: 250px;
+            background-color: var(--soft-pink);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid white;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Washi Tape Decor */
+        .tape {
+            position: absolute;
+            width: 80px;
+            height: 30px;
+            background: rgba(255, 192, 203, 0.6);
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            z-index: 5;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-text {
+            margin-top: 15px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* --- Conclusion Section --- */
+        .wish {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--cream);
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .message-card {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 2px solid var(--primary-pink);
+            position: relative;
+        }
+
+        .message-card::before {
+            content: '💌';
+            font-size: 3rem;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .heart-icon {
+            font-size: 2rem;
+            color: var(--accent-red);
+            animation: heartbeat 1.5s infinite;
+            margin: 20px 0;
+        }
+
+        .wish-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .surprise-btn {
+            background-color: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        .surprise-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--deep-red);
+        }
+
+        /* City Silhouette Decor (Like IMG_5598) */
+        .city-scape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .house {
+            width: 40px;
+            background: var(--primary-pink);
+            border-radius: 5px 5px 0 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            .timeline-item { flex-direction: column !important; align-items: flex-start; }
+            .timeline-content { width: calc(100% - 40px); margin-left: 40px; text-align: left !important; }
+            .hero-title { font-size: 3.5rem; }
+            .cloud:nth-child(odd) { display: none; }
+        }
+
+        /* Confetti Canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Section 1: Hero -->
+    <section class="hero" id="home">
+        <div class="hanging-hearts">
+            <div class="string" style="animation-delay: 0s; height: 120px;"></div>
+            <div class="string" style="animation-delay: 0.5s; height: 80px;"></div>
+            <div class="string" style="animation-delay: 1.2s; height: 150px;"></div>
+            <div class="string" style="animation-delay: 0.2s; height: 100px;"></div>
+            <div class="string" style="animation-delay: 0.8s; height: 130px;"></div>
+        </div>
+
+        <!-- Animated Clouds -->
+        <div class="cloud" style="top: 15%; animation-duration: 40s; animation-delay: -5s;"></div>
+        <div class="cloud" style="top: 30%; animation-duration: 35s; animation-delay: -15s;"></div>
+        <div class="cloud" style="top: 10%; animation-duration: 50s; animation-delay: -2s;"></div>
+
+        <h1 class="hero-title">Happy<br>Valentine's Day</h1>
+        <p style="font-size: 1.2rem; z-index: 10; font-weight: 300;">Meo mnhin cua cun</p>
+        
+        <div class="scroll-indicator" onclick="window.scrollTo(0, window.innerHeight)">
+            <span>↓</span>
+        </div>
+
+        <div class="city-scape">
+            <div class="house" style="height: 60px;"></div>
+            <div class="house" style="height: 80px; width: 50px;"></div>
+            <div class="house" style="height: 40px;"></div>
+            <div class="house" style="height: 90px; width: 45px;"></div>
+            <div class="house" style="height: 70px;"></div>
+            <div class="house" style="height: 55px;"></div>
+        </div>
+    </section>
+
+    <!-- Section 2: Journey -->
+    <section class="journey">
+        <h2 class="section-heading">Our Beautiful Journey</h2>
+        
+        <div class="timeline">
+            <!-- Item 1 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="tape"></div>
+                    <div class="photo-container">
+                        <img src="IMG_1856.jpg" alt="Our First Memory" loading="lazy" decoding="async">
+                    </div>
+                    <div class="timeline-text">
+                        <strong>Buoi di choi dau tien nee</strong><br>
+                        Lúc này siu ngây thơ, siu ngại lunn
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="tape"></div>
+                    <div class="photo-container">
+                        <img src="IMG_3610.JPG" alt="A Special Memory" loading="lazy" decoding="async">
+                    </div>
+                    <div class="timeline-text">
+                        <strong>2024 Christmas' Eve</strong><br>
+                        Anh dắt em đi lòng dòng quận 1 nè nhớ hong
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="tape"></div>
+                    <div class="photo-container">
+                        <img src="att.jzitOaMkR7yvwqzFM_h3WYLIAPaw3klc5Lal6wlYdzI 2.JPG" alt="Our Future" loading="lazy" decoding="async">
+                    </div>
+                    <div class="timeline-text">
+                        <strong>Những ngày cúi ở trường</strong><br>
+                        Tấm ảnh siu đẹp, siu cuti lun
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: My Wish -->
+    <section class="wish">
+        <div class="message-card">
+            <div class="heart-icon">❤️</div>
+            <h2 style="font-family: 'Pacifico', cursive; margin-bottom: 20px;">To My Favorite Person,</h2>
+            <p class="wish-text">
+                "Happy Valentines Day my love. Cảm ơn em vì đã cho anh thật nhiều kỷ niệm đẹp. Mới đây thoi mà đã 2 năm mất tiêu ròi.. Hồi cấp ba vui lắm, ngày nào cũng chở em đi ăn, đưa em đi học, đón em, ròi mình ngòi học bài chung,... Làm đủ thứ chuyện trên đời. Bây giờ mình cách xa nhau tận nửa vòng Trái đất, và ai cũng bận rộn với công việc của mình hếc. Dù nhiều lúc a cảm giác như cả ngày mình chả nói với nhau được câu nào cả, nhưng anh biết được là ở bên kia em cũng đang cố gắng dữ lắm. Giống như anh. Anh rất biết ơn vì đã có thể gặp được một người con gái thương a thật lòng, dễ thương, phép tắc, mà lại mạnh mẽ, ý chí, luôn luôn cố gắng vì mục tiêu của mình như em. Nó càng cho anh thêm thật nhiều động lực để từng ngày phấn đấu vì thứ anh muốn. Mình cùng cố gắng nhe. Anh hong biết tặng em cái j hếc nên chỉ có cái này hoi. Mong em thích nó. Yêu em nhìu lắmm."
+            </p>
+            <button class="surprise-btn" id="surpriseBtn">Click for one last surprise!</button>
+        </div>
+
+        <div class="city-scape" style="opacity: 0.15">
+            <div class="house" style="height: 40px;"></div>
+            <div class="house" style="height: 70px;"></div>
+            <div class="house" style="height: 50px;"></div>
+            <div class="house" style="height: 90px;"></div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 20px; font-size: 0.8rem; color: #aaa;">
+        Made with love for you.
+    </footer>
+
+    <script>
+        // Reveal elements on scroll
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Confetti Logic
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        const surpriseBtn = document.getElementById('surpriseBtn');
+
+        let particles = [];
+        const particleCount = 150;
+        const colors = ['#FF4D6D', '#FFC0CB', '#C0392B', '#FFFFFF', '#FFB6C1'];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 8 + 4;
+                this.speedY = Math.random() * 3 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 10 - 5;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > canvas.height) {
+                    this.active = false;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                
+                // Draw heart or square
+                if (Math.random() > 0.5) {
+                    ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size/2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        let animationId;
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let stillActive = false;
+            
+            particles.forEach(p => {
+                if (p.active) {
+                    p.update();
+                    p.draw();
+                    stillActive = true;
+                }
+            });
+
+            if (stillActive) {
+                animationId = requestAnimationFrame(animateConfetti);
+            }
+        }
+
+        surpriseBtn.addEventListener('click', () => {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                const p = new Particle();
+                p.active = true;
+                particles.push(p);
+            }
+            cancelAnimationFrame(animationId);
+            animateConfetti();
+            
+            surpriseBtn.innerText = "I Love You! ❤️";
+            surpriseBtn.style.backgroundColor = "#C0392B";
+        });
+    </script>
+</body>
+</html>
